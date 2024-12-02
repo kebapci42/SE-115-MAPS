@@ -5,23 +5,11 @@ public class InputReader {
     public String[] cities;
     public String[][] routes;
 
-    public static void main(String[] args) {
-        File input = new File("Map2.txt");
-
-        try {
-            // Read the entire document once
-            ArrayList<String> document = splitDoc(input);
-            
-            // Print the parsed routes
-            System.out.println("Cities: " + Arrays.toString(findCities(document)));
-            System.out.println("Routes: " + Arrays.deepToString(findRoutes(document)));
-            System.out.println("Question: " + Arrays.toString(question(document)));
-        } catch (FileNotFoundException e) {
-            System.err.println("File not found: " + e.getMessage());
-        } catch (IOException e) {
-            System.err.println("IO Error: " + e.getMessage());
-        }
-    }
+    public InputReader(File file) throws FileNotFoundException, IOException{
+        ArrayList<String> document = splitDoc(file);
+        cities = findCities(document);
+        routes = findRoutes(document);
+    } 
 
     // Read the file content into an ArrayList
     public static ArrayList<String> splitDoc(File file) throws IOException {
