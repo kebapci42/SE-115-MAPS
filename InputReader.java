@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class InputReader {
     public static String[] document;
-    public static String[] cities;
-    public static String[][] routes;
-    public static String[] question;
+    private static String[] cityNames;
+    private static String[][] routes;
+    private static String[] question;
 
     public static void readInputFile(String fileName){
 
@@ -46,15 +46,17 @@ public class InputReader {
         }
     }
 
-    public static void createCityArray() {
+    public static String[] createCityArray() {
         // Parse the size of the city array from the first line
-        cities = new String[Integer.parseInt(document[0])];
+        cityNames = new String[Integer.parseInt(document[0])];
 
         // Read the second line into the city array
-        System.arraycopy(document[1].split(" "), 0, cities, 0, cities.length);
+        System.arraycopy(document[1].split(" "), 0, cityNames, 0, cityNames.length);
+
+        return cityNames;
     }
 
-    public static void createRouteArray() {
+    public static String[][] createRouteArray() {
         // Parse the size of the route array from the third line
         routes = new String[Integer.parseInt(document[2])][3]; // City1, City2, Time for every route
 
@@ -62,11 +64,15 @@ public class InputReader {
         for(int i = 0; i < routes.length; i++){
             System.arraycopy(document[i + 3].split(" "), 0, routes[i], 0, 3);
         }
+
+        return routes;
     }
 
-    public static void createQuestionArray() {
+    public static String[] createQuestionArray() {
         // Read the last line into the question array
         question = new String[2]; // Starting city and ending city
         System.arraycopy(document[document.length - 1].split(" "), 0, question, 0, question.length);
+
+        return question;
     }
 }
