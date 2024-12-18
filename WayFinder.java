@@ -30,6 +30,7 @@ public class WayFinder {
         for (int i = resultantRoute.length - 1; i >= 0; i--) {
             output += resultantRoute[i].getName() + " --> ";
         }
-        System.out.println(output.substring(0, output.length() - 5) + "\t" + totalTime + " mins");
+        System.out.println( "Fastest Way: " + output.substring(0, output.length() - 5) + 
+                            "\nTotal Time: " + totalTime + " mins.");
     }
 }
