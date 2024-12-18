@@ -38,6 +38,10 @@ public class ImprovedArrays {
         return newArray;
     }
 
+    public static City getFirstCityElementOfArray(City[] array) {
+        return array[0];
+    }
+
     public static City getLastCityElementOfArray(City[] array) {
         return array[array.length - 1];
     }
