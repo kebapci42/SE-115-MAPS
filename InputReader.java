@@ -7,6 +7,7 @@ public class InputReader {
     private static String[] cityNames;
     private static String[][] routes;
     private static String[] question;
+    public static boolean isReadSuccesful = true;
 
     public static void readInputFile(String fileName){
 
@@ -36,9 +37,8 @@ public class InputReader {
             }
             
         } catch (IOException e) {
-            System.out.printf("Could not found the file '%s'.", fileName);
-        } catch (NumberFormatException e) {
-
+            System.err.printf("Could not found the file '%s'!", fileName);
+            isReadSuccesful = false;
         } finally {
             if (reader != null){
                 reader.close();
@@ -47,22 +47,57 @@ public class InputReader {
     }
 
     public static String[] createCityArray() {
-        // Parse the size of the city array from the first line
-        cityNames = new String[Integer.parseInt(document[0])];
+        try {
+            // Parse the size of the city array from the first line
+            cityNames = new String[Integer.parseInt(document[0])];
 
-        // Read the second line into the city array
-        System.arraycopy(document[1].split(" "), 0, cityNames, 0, cityNames.length);
+            // Read the second line into the city array
+            String[] cityInput = document[1].split(" ");
 
+            if (cityNames.length != cityInput.length) { // Check for length
+                System.err.println("Number of cities does not satisfy the given size! Input File Error Line: 2");
+                isReadSuccesful = false;
+            } else {
+                System.arraycopy(cityInput, 0, cityNames, 0, cityNames.length);
+            }
+            
+        } catch (NumberFormatException e) {
+            System.err.println("Could not parse the integer! Input File Error Line: 1");
+            isReadSuccesful = false;
+        }
+        
         return cityNames;
     }
 
     public static String[][] createRouteArray() {
-        // Parse the size of the route array from the third line
-        routes = new String[Integer.parseInt(document[2])][3]; // City1, City2, Time for every route
+        try {
+            // Parse the size of the route array from the third line
+            routes = new String[Integer.parseInt(document[2])][3]; // City1, City2, Time for every route
+    
+            // Fill the routes array 
+            for(int i = 0; i < routes.length; i++){
+                String[] routeInput = document[i + 3].split(" ");
 
-        // Fill the routes array
-        for(int i = 0; i < routes.length; i++){
-            System.arraycopy(document[i + 3].split(" "), 0, routes[i], 0, 3);
+                if (routeInput.length != 3) { // Check: City1, City2, Time for every route
+                    System.err.printf("Number of elements for route %d is not true! Input File Error Line: %d", i, (i + 4));
+                    isReadSuccesful = false;
+                    break;
+                } else {
+                    System.arraycopy(routeInput, 0, routes[i], 0, 3);
+                }    
+            }
+
+            // Check for empty routes
+            for (String[] route : routes) {
+                if (route == null) {
+                    System.err.println("Number of the found routes in the file does not satisfy the given size." +
+                             " Input File Error Line: " + (3 + routes.length));
+                    isReadSuccesful = false;
+                }
+            }
+        } catch (NumberFormatException e) {
+            System.err.println("Could not parse the integer. Input File Error Line: 3");
+            isReadSuccesful = false;
         }
 
         return routes;
@@ -70,9 +105,16 @@ public class InputReader {
 
     public static String[] createQuestionArray() {
         // Read the last line into the question array
+        String[] questionInput = document[document.length - 1].split(" "); 
         question = new String[2]; // Starting city and ending city
-        System.arraycopy(document[document.length - 1].split(" "), 0, question, 0, question.length);
 
+        if (questionInput.length != question.length) {
+            System.err.println("Could not found the question. Input File Error Line: " + (document.length));
+            isReadSuccesful = false;
+        } else {
+            System.arraycopy(questionInput, 0, question, 0, question.length);
+        }
+        
         return question;
     }
 }
