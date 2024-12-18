@@ -9,7 +9,7 @@ public class City {
         this.previousCity = null;
     }
 
-    //
+    // Getter for name
     public String getName() {
         return this.name;
     }
