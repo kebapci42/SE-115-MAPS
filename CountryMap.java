@@ -25,12 +25,17 @@ public class CountryMap {
         while (currentCity != null) {
             // Iterate over the routes array to find all neighbours of current city
             for (String[] route : routes) {
-                if (currentCity.getName().equalsIgnoreCase(route[0])) {
+                // Find a route that starts from current city
+                if (currentCity.getName().equals(route[0])) {
+
                     for (City city : unvisitedCities) {
-                        if (city.getName().equalsIgnoreCase(route[1])) {
-                            double newTime = Double.parseDouble(route[2]);
-                            if (newTime < city.getTime()) {
-                                city.setTime(newTime);
+                        // Find the end city for the same route
+                        if (city.getName().equals(route[1])) {
+
+                            double newTime = Double.parseDouble(route[2]);// Parse the time of the route
+
+                            if (currentCity.getTime() + newTime < city.getTime()) {
+                                city.setTime(currentCity.getTime() + newTime);
                                 city.setPreviousCity(currentCity);
                             }
                         }
@@ -39,41 +44,15 @@ public class CountryMap {
             }
 
             // Mark current city as visited
-            addCurrentCityToVisitedCities();
+            visitedCities = ImprovedArrays.addCityElementToArray(visitedCities, currentCity);
 
             // Remove current city from the unvisited cities
-            removeCurrentCityFromUnvisitedCities();
+            unvisitedCities = ImprovedArrays.removeCityElementFromArray(unvisitedCities, currentCity);
 
             // Choose a new current city from the unvisited cities
             currentCity = getNextCityWithSmallestTime();
         }
 
-    }
-
-    public void addCurrentCityToVisitedCities() {
-        City[] updatedVisitedCities = new City[visitedCities.length + 1];
-
-        // Copy existing elements to new array
-        System.arraycopy(visitedCities, 0, updatedVisitedCities, 0, visitedCities.length);
-
-        // Add current city to the last slot
-        updatedVisitedCities[visitedCities.length] = currentCity;
-
-        // Update visited cities
-        visitedCities = updatedVisitedCities;
-    }
-
-    public void removeCurrentCityFromUnvisitedCities() {
-        City[] updatedUnvisitedCities = new City[unvisitedCities.length - 1];
-        int index = 0;
-
-        for (City city : unvisitedCities) {
-            if (!city.equals(currentCity)) {
-                updatedUnvisitedCities[index++] = city;// Add city and then increment index by 1
-            }
-        }
-
-        unvisitedCities = updatedUnvisitedCities;
     }
 
     public City getNextCityWithSmallestTime() {
