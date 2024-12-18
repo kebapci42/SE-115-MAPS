@@ -37,4 +37,8 @@ public class ImprovedArrays {
 
         return newArray;
     }
+
+    public static City getLastCityElementOfArray(City[] array) {
+        return array[array.length - 1];
+    }
 }
