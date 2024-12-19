@@ -37,7 +37,7 @@ public class InputReader {
             }
             
         } catch (IOException e) {
-            System.err.printf("Could not found the file '%s'!", fileName);
+            System.err.printf("Could not found the file '%s'!\n", fileName);
             isReadSuccesful = false;
         } finally {
             if (reader != null){
@@ -79,7 +79,7 @@ public class InputReader {
                 String[] routeInput = document[i + 3].split(" ");
 
                 if (routeInput.length != 3) { // Check: City1, City2, Time for every route
-                    System.err.printf("Number of elements for route %d is not true! Input File Error Line: %d", i, (i + 4));
+                    System.err.printf("Number of elements for route %d is not true! Input File Error Line: %d\n", (i + 1), (i + 4));
                     isReadSuccesful = false;
                     break;
                 } else {

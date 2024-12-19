@@ -68,5 +68,4 @@ public class CountryMap {
 
         return nextCity;
     }
-
 }
