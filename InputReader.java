@@ -70,11 +70,12 @@ public class InputReader {
 
     public static String[][] createRoutesArray() {
         try {
-            // Parse the size of the routes array from the third line
-            routes = new String[Integer.parseInt(document[2])][3]; // City1, City2, Time for every route
+            // Parse the size of the routes array from the third line and double it
+            int size = Integer.parseInt(document[2]);
+            routes = new String[size * 2][3]; // City1, City2, Time for every route
     
-            // Fill the routes array 
-            for(int i = 0; i < routes.length; i++){
+            // Fill the routes array in the given directions
+            for(int i = 0; i < (routes.length / 2); i++){
                 String[] routeInput = document[i + 3].split(" ");
 
                 if (routeInput.length != 3) { // Check: City1, City2, Time for every route
@@ -83,6 +84,16 @@ public class InputReader {
                 } else {
                     System.arraycopy(routeInput, 0, routes[i], 0, 3);
                 }    
+            }
+
+            if (isReadSuccesful) {
+                // Make all the routes bidirectional
+                for (int i = 0; i < (routes.length / 2); i++) {
+                    String[] routeInput = document[i + 3].split(" ");
+                    routes[i + size][0] = routeInput[1];
+                    routes[i + size][1] = routeInput[0];
+                    routes[i + size][2] = routeInput[2];
+                }
             }
         } catch (NumberFormatException e) {
             errorMessage = "Could not parse the integer! Input File Error Line: 3";

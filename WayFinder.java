@@ -42,13 +42,18 @@ public class WayFinder {
         }
     }
     
-    public static void printResult() {
-        String output = "";
+    public static void printResult(String fileName) {
+        String fastestRoute = "";
         double totalTime = ImprovedArrays.getFirstCityElementOfArray(resultantRoute).getTime();
+
         for (int i = resultantRoute.length - 1; i >= 0; i--) {
-            output += resultantRoute[i].getName() + " --> ";
+            fastestRoute += resultantRoute[i].getName() + " --> ";
         }
-        System.out.println( "Fastest Way: " + output.substring(0, output.length() - 5) + 
-                            "\nTotal Time: " + totalTime + " mins.");
+
+        String output = "\nFastest Way: " + fastestRoute.substring(0, fastestRoute.length() - 5) + 
+                        "\nTotal Time: " + totalTime + " mins.\n";
+        
+        fileName = fileName + "Result.txt";
+        WriteToFile.writeResultToFile(fileName, output);
     }
 }
