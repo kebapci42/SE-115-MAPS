@@ -35,8 +35,7 @@ public class InputReader {
 
             for (int i = 0; i < document.length; i++){
                 document[i] = reader.nextLine().trim();
-            }
-            
+            }  
         } catch (IOException e) {
             errorMessage = "Could not found the file " + fileName + "!";
             isReadSuccesful = false;
@@ -60,8 +59,7 @@ public class InputReader {
                 isReadSuccesful = false;
             } else {
                 System.arraycopy(cityInput, 0, cityNames, 0, cityNames.length);
-            }
-            
+            }   
         } catch (NumberFormatException e) {
             errorMessage = "Could not parse the integer! Input File Error Line: 1";
             isReadSuccesful = false;
@@ -70,9 +68,9 @@ public class InputReader {
         return cityNames;
     }
 
-    public static String[][] createRouteArray() {
+    public static String[][] createRoutesArray() {
         try {
-            // Parse the size of the route array from the third line
+            // Parse the size of the routes array from the third line
             routes = new String[Integer.parseInt(document[2])][3]; // City1, City2, Time for every route
     
             // Fill the routes array 
@@ -82,18 +80,9 @@ public class InputReader {
                 if (routeInput.length != 3) { // Check: City1, City2, Time for every route
                     errorMessage = "Number of elements for route " + (i + 1) + " is not true! Input File Error Line: " + (i + 4);
                     isReadSuccesful = false;
-                    break;
                 } else {
                     System.arraycopy(routeInput, 0, routes[i], 0, 3);
                 }    
-            }
-
-            // Check for empty routes
-            for (String[] route : routes) {
-                if (route == null) {
-                    errorMessage = "Number of the found routes in the file does not satisfy the given size! Input File Error Line: " + (3 + routes.length);
-                    isReadSuccesful = false;
-                }
             }
         } catch (NumberFormatException e) {
             errorMessage = "Could not parse the integer! Input File Error Line: 3";

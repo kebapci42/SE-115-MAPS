@@ -29,11 +29,11 @@ public class CountryMap {
         }
 
         if (isMappingSuccesful){
-            // Main loop to process cities
+            // Main loop to process the cities
             while (currentCity != null) {
-                // Iterate over the routes array to find all neighbours of current city
+                // Iterate over the routes array to find all neighbours of the current city
                 for (int i = 0; i < routes.length; i++) {
-                    // Find a route that starts from current city
+                    // Find a route that starts from the current city
                     if (currentCity.getName().equals(routes[i][0])) {
 
                         for (City city : unvisitedCities) {
@@ -48,25 +48,31 @@ public class CountryMap {
                                         city.setTime(currentCity.getTime() + newTime);
                                         city.setPreviousCity(currentCity);
                                     }
-
                                 } catch (NumberFormatException e) {
                                     errorMessage = "Could not parse the time for the route" + (i + 1) + "! Input File Error Line: " + (i + 4);
                                     isMappingSuccesful = false;
                                 }
-                                
                             }
                         }
                     }
                 }
 
-                // Mark current city as visited
+                // Mark the current city as visited
                 visitedCities = ImprovedArrays.addCityElementToArray(visitedCities, currentCity);
 
-                // Remove current city from the unvisited cities
+                // Remove the current city from the unvisited cities
                 unvisitedCities = ImprovedArrays.removeCityElementFromArray(unvisitedCities, currentCity);
 
                 // Choose a new current city from the unvisited cities
                 currentCity = getNextCityWithSmallestTime();
+            }
+
+            // In case of the number at the third line in the input file is smaller than the supplied routes, 
+            // make sure all the given cities in the input file is added to the visited cities list although
+            // they may have an infinite time to reach
+            while (visitedCities.length != InputReader.createCityArray().length){
+                City tempCity = ImprovedArrays.getLastCityElementOfArray(unvisitedCities);
+                visitedCities = ImprovedArrays.addCityElementToArray(visitedCities, tempCity);
             }
         }
     }

@@ -4,7 +4,7 @@ public class Main {
         for(String arg : args){
             InputReader.readInputFile(arg);
             String[] cityNames = InputReader.createCityArray();
-            String[][] routes = InputReader.createRouteArray();
+            String[][] routes = InputReader.createRoutesArray();
             String[] question = InputReader.createQuestionArray();
 
             if (InputReader.isReadSuccesful) {
