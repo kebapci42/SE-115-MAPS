@@ -1,4 +1,3 @@
-
 public class Main {
     public static void main(String[] args){
 
@@ -10,13 +9,20 @@ public class Main {
 
             if (InputReader.isReadSuccesful) {
                 CountryMap map = new CountryMap(cityNames, routes);
-                WayFinder.findFastestWay(map, question);
+                
+                if (map.isMappingSuccesful){
+                    WayFinder.findFastestWay(map, question);
 
-                if (WayFinder.doesWayExist) {
-                    WayFinder.printResult();
+                    if (WayFinder.doesWayExist) {
+                        WayFinder.printResult();
+                    } else {
+                        System.err.println(WayFinder.errorMessage);
+                    }
                 } else {
-                    System.err.println(WayFinder.errorMessage);
-                }
+                    System.err.println(map.errorMessage);
+                } 
+            } else {
+                System.err.println(InputReader.errorMessage);
             }
         }
     }

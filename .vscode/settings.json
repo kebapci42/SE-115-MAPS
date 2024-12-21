@@ -1,8 +1,0 @@
-{
-    "terminal.explorerKind": "integrated",
-    "java.debug.settings.console": "integratedTerminal",
-    "debug.javascript.terminalOptions": {
-
-    },
-    "debug.terminal.clearBeforeReusing": true
-}

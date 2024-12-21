@@ -8,6 +8,7 @@ public class InputReader {
     private static String[][] routes;
     private static String[] question;
     public static boolean isReadSuccesful = true;
+    public static String errorMessage = "";
 
     public static void readInputFile(String fileName){
 
@@ -37,7 +38,7 @@ public class InputReader {
             }
             
         } catch (IOException e) {
-            System.err.printf("Could not found the file '%s'!\n", fileName);
+            errorMessage = "Could not found the file " + fileName + "!";
             isReadSuccesful = false;
         } finally {
             if (reader != null){
@@ -55,14 +56,14 @@ public class InputReader {
             String[] cityInput = document[1].split(" ");
 
             if (cityNames.length != cityInput.length) { // Check for length
-                System.err.println("Number of cities does not satisfy the given size! Input File Error Line: 2");
+                errorMessage = "Number of cities does not satisfy the given size! Input File Error Line: 2";
                 isReadSuccesful = false;
             } else {
                 System.arraycopy(cityInput, 0, cityNames, 0, cityNames.length);
             }
             
         } catch (NumberFormatException e) {
-            System.err.println("Could not parse the integer! Input File Error Line: 1");
+            errorMessage = "Could not parse the integer! Input File Error Line: 1";
             isReadSuccesful = false;
         }
         
@@ -79,7 +80,7 @@ public class InputReader {
                 String[] routeInput = document[i + 3].split(" ");
 
                 if (routeInput.length != 3) { // Check: City1, City2, Time for every route
-                    System.err.printf("Number of elements for route %d is not true! Input File Error Line: %d\n", (i + 1), (i + 4));
+                    errorMessage = "Number of elements for route " + (i + 1) + " is not true! Input File Error Line: " + (i + 4);
                     isReadSuccesful = false;
                     break;
                 } else {
@@ -90,13 +91,12 @@ public class InputReader {
             // Check for empty routes
             for (String[] route : routes) {
                 if (route == null) {
-                    System.err.println("Number of the found routes in the file does not satisfy the given size." +
-                             " Input File Error Line: " + (3 + routes.length));
+                    errorMessage = "Number of the found routes in the file does not satisfy the given size! Input File Error Line: " + (3 + routes.length);
                     isReadSuccesful = false;
                 }
             }
         } catch (NumberFormatException e) {
-            System.err.println("Could not parse the integer. Input File Error Line: 3");
+            errorMessage = "Could not parse the integer! Input File Error Line: 3";
             isReadSuccesful = false;
         }
 
@@ -109,7 +109,7 @@ public class InputReader {
         question = new String[2]; // Starting city and ending city
 
         if (questionInput.length != question.length) {
-            System.err.println("Could not found the question. Input File Error Line: " + (document.length));
+            errorMessage = "Could not found the question! Input File Error Line: " + (document.length);
             isReadSuccesful = false;
         } else {
             System.arraycopy(questionInput, 0, question, 0, question.length);

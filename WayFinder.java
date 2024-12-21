@@ -1,5 +1,4 @@
 public class WayFinder {
-
     private static City startCity = null;
     private static City endCity = null;
     private static City[] resultantRoute = new City[0];
@@ -22,14 +21,9 @@ public class WayFinder {
             }
         }
 
-        if (startCity == null) {
-            errorMessage = "Starting city does not exist among the given city list!" + 
-                        " Input File Error Line: " + (InputReader.document.length);
-            doesWayExist = false;
-        }
+        // Check for miswritten question
         if (endCity == null) {
-            errorMessage = "Ending city does not exist among the given city list!" + 
-                        " Input File Error Line: " + (InputReader.document.length);
+            errorMessage = "Ending city does not exist among the given city list! Input File Error Line: " + (InputReader.document.length);
             doesWayExist = false;
         }
         
@@ -37,11 +31,15 @@ public class WayFinder {
             // Read all the previous cities into array from end to start
             City tempCity;
 
-            while ((tempCity = ImprovedArrays.getLastCityElementOfArray(resultantRoute)) != startCity) {
-                resultantRoute = ImprovedArrays.addCityElementToArray(resultantRoute, tempCity.getPreviousCity());
+            try {
+                while ((tempCity = ImprovedArrays.getLastCityElementOfArray(resultantRoute)) != startCity) {
+                    resultantRoute = ImprovedArrays.addCityElementToArray(resultantRoute, tempCity.getPreviousCity());
+                } 
+            } catch (NullPointerException e) {
+                errorMessage = "No such way exists between start and end cities!";
+                doesWayExist = false;
             }
         }
-            
     }
     
     public static void printResult() {
