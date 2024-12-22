@@ -22,6 +22,7 @@ public class City {
     public void setTime(double time) {
         this.time = time;
     }
+    
 
     // Getter and setter for previous city
     public City getPreviousCity() {

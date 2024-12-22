@@ -1,5 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Formatter;
 
 public class WriteToFile {
@@ -7,7 +8,7 @@ public class WriteToFile {
         FileWriter writer = null;
         Formatter formatter = null;
         try {
-            writer = new FileWriter(fileName, true);
+            writer = new FileWriter(Paths.get("../Maps", fileName).toString(), true);
             formatter = new Formatter(writer);
             formatter.format("%s", output);
             

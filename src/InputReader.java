@@ -15,8 +15,8 @@ public class InputReader {
         Scanner reader = null;
         
         try {
-            
-            reader = new Scanner(Paths.get(fileName));
+
+            reader = new Scanner(Paths.get("../Maps", fileName));
             
             // Find the length of the document
             int lineCount = 0;
@@ -26,16 +26,16 @@ public class InputReader {
                 lineCount++;
             }
 
-            // CLose and reopen the scanner to read the file again
+            // Close and reopen the scanner to read the file again
             reader.close();
-            reader = new Scanner(Paths.get(fileName));
+            reader = new Scanner(Paths.get("../Maps", fileName));
 
             // Fill the document array
             document = new String[lineCount];
 
             for (int i = 0; i < document.length; i++){
                 document[i] = reader.nextLine().trim();
-            }  
+            }
         } catch (IOException e) {
             errorMessage = "Could not found the file " + fileName + "!";
             isReadSuccesful = false;
