@@ -16,7 +16,7 @@ public class InputReader {
         
         try {
 
-            reader = new Scanner(Paths.get("../Maps", fileName));
+            reader = new Scanner(Paths.get(fileName));
             
             // Find the length of the document
             int lineCount = 0;
@@ -28,7 +28,7 @@ public class InputReader {
 
             // Close and reopen the scanner to read the file again
             reader.close();
-            reader = new Scanner(Paths.get("../Maps", fileName));
+            reader = new Scanner(Paths.get(fileName));
 
             // Fill the document array
             document = new String[lineCount];
